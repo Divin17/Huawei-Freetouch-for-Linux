@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Control the Huawei Free Touch user service.
+set -euo pipefail
+UNIT=huawei-freetouch.service
+
+usage() {
+    cat <<USAGE
+usage: freetouchctl <command>
+
+  start      start now (sliders + haptic ticks on)
+  stop       stop now (FreeTouch is switched off, edges act as a normal touchpad)
+  restart    restart the service
+  status     show whether it is running
+  enable     start automatically at every login (and start now)
+  disable    don't start at login (and stop now)
+  logs       follow the service log
+  debug      run in the foreground, printing every firmware tick (Ctrl+C to quit)
+USAGE
+}
+
+case "${1:-}" in
+    start|stop|restart|status)
+        systemctl --user "$1" "$UNIT" ;;
+    enable|disable)
+        systemctl --user "$1" --now "$UNIT" ;;
+    logs)
+        journalctl --user -u "$UNIT" -f -o cat ;;
+    debug)
+        was_active=$(systemctl --user is-active "$UNIT" || true)
+        systemctl --user stop "$UNIT"
+        trap '[[ $was_active == active ]] && systemctl --user start "$UNIT"' EXIT
+        "$HOME/.local/bin/huawei-freetouch" --debug ;;
+    *)
+        usage; exit 1 ;;
+esac

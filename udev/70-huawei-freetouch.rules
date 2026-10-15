@@ -1,0 +1,5 @@
+# Huawei Free Touch for Linux: let members of the "input" group
+#  - inject the volume/brightness keys (uinput)
+#  - talk to the Goodix GXTP7863 touchpad's vendor HID collection (hidraw)
+KERNEL=="uinput", GROUP="input", MODE="0660"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", KERNELS=="i2c-GXTP7863:00", GROUP="input", MODE="0660"
