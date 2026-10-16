@@ -55,7 +55,8 @@ elif (( relogin )); then
     say "Installed and enabled. Log out and back in once (new group membership),"
     echo "    then it starts automatically. Control it with: freetouchctl"
 else
-    systemctl --user enable --now huawei-freetouch.service
+    systemctl --user enable huawei-freetouch.service
+    systemctl --user restart huawei-freetouch.service   # pick up new permissions / program
     say "Running. Slide along the right edge for volume, left edge for brightness."
     echo "    Control it with: freetouchctl start|stop|status|enable|disable|logs"
 fi
