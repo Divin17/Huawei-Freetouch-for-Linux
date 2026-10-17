@@ -13,10 +13,14 @@ command Huawei PC Manager sends on Windows) and turning the firmware's gesture
 ticks into media-key presses. The protocol is documented in
 [docs/PROTOCOL.md](docs/PROTOCOL.md).
 
-## Supported hardware
+## Tested on
 
-Tested on the **Huawei MateBook X Pro 2022 (MRGF-XX)** with the Goodix
-`GXTP7863` touchpad (`27C6:01E0`), Ubuntu with GNOME on Wayland.
+| | |
+|---|---|
+| Laptop | **Huawei MateBook X Pro 2022**, model **MRGF-XX** (BIOS 1.39) |
+| Touchpad | Goodix `GXTP7863` (`27C6:01E0`) |
+| OS | Ubuntu 26.04 LTS, kernel 7.0, GNOME on Wayland |
+
 Other Huawei laptops with a Free Touch pad may work if they use the same
 touchpad; check with:
 
@@ -31,7 +35,8 @@ the volume/brightness keys (GNOME, KDE, …).
 
 ```bash
 sudo apt install python3-evdev      # Fedora: python3-evdev, Arch: python-evdev
-git clone <this repo> && cd huawei-freetouch-linux
+git clone https://github.com/Divin17/Huawei-Freetouch-for-Linux.git
+cd Huawei-Freetouch-for-Linux
 ./install.sh
 ```
 
